@@ -76,7 +76,7 @@ Así debería ser la respuesta del servicio search sin filtrar:
 
 
 REQUISITOS:
--   La solución debe ser enviada vía un pull request a este repositorio.
+-   La solución debe ser enviada vía pull request a este repositorio.
 -   La solución debe contener un README.md con las instrucciones para compilar e instalar en caso de incorporar componentes adicionales.
 - Por último en el detalle del commit debes indicar los siguientes datos
    - Nombre Completo.
