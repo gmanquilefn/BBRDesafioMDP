@@ -1,0 +1,113 @@
+openapi: 3.0.1
+info:
+  title: API Desafio BBR.
+  description: Esta API se encarga de generar registros en memoria y luego consultar dichos registros segun parametros.
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api/v1/desafio/mdp
+
+
+paths:
+
+  /create:
+    post:
+      tags:
+      - Crear registros
+      summary: Inserta informacion de transaccion en memoria de manera automatica
+
+      responses:
+        200:
+          description: (OK) La informacion de la transaccion de guardo corrctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityTransaction'
+              example:
+                id: 3
+                commerce: BBR Spa
+                amount: 457990
+                type: CREDITO
+                user: uBBR
+                datetrx: "2022-05-31T23:43:03.9005092"
+
+    
+  /search/{type}:
+    get:
+      tags:
+      - Consultar registros por metodo de pago
+      summary: Obtiene la informacion de las transacciones por metodo de pago.
+      parameters:
+      - name: type
+        in: path
+        description: Metodo de pago de la transaccion
+        required: true
+        schema:
+          type: string
+          enum: [DEBITO, CREDITO, CHEQUE, EFECTIVO]
+        
+      responses:
+        200:
+          description: (OK) Transacciones con metodo de pago consultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityTransaction'
+              example:
+                id: 6
+                commerce: BBR Spa
+                amount: 23990
+                type: DEBITO
+                user: uBBR
+                datetrx: "2022-05-31T23:44:03.9005092"
+              
+  /search:
+    get:
+      tags:
+      - Consultar todos los registros
+      summary: Obtiene la informacion de todas las transacciones registradas
+        
+      responses:
+        200:
+          description: (OK) Transacciones registradas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityTransaction'
+              example:
+                id: 1
+                commerce: BBR Spa
+                amount: 56790
+                type: EFECTIVO
+                user: uBBR
+                datetrx: "2022-05-31T23:45:03.9005092"
+              
+
+
+  
+
+components:
+  schemas:
+
+    entityTransaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Id de transaccion
+        commerce: 
+          type: string
+          description: Comercio correspondiente de la transaccion
+        amount:
+          type: integer
+          description: Monto de transaccion
+        type:
+          type: string
+          description: Metodo de pago utilzado en la transaccion
+        user:
+          type: string
+          description: Usuario que realizo transaccion
+        datetrx:
+          type: string
+          description: Marca de tiempo de transaccion
+  
+          
